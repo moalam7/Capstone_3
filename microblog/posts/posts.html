@@ -27,6 +27,20 @@
 
     <main>
       <h1>Posts</h1>
+      <form id="postForm">
+        <textarea id="postText" rows="4" cols="50" placeholder="Write your post here..."></textarea>
+        <button type="submit">Create Post</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Created At</th>
+            <th>Likes</th>
+          </tr>
+        </thead>
+        <tbody id="postsList"></tbody>
+      </table>
     </main>
 
     <footer></footer>
