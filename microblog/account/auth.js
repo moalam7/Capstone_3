@@ -78,3 +78,42 @@ function logout() {
       window.location.assign("/"); // redirect back to landing page
     });
 }
+
+function createPost(postContent) {
+  //To even make a post, must get authorization
+  const loginData = getLoginData();
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${loginData.token}`,
+    },
+    body: JSON.stringify(postContent),
+  };
+
+  return fetch(apiBaseURL + "/api/posts", options)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Post created:", data);
+      return data;
+    });
+}
+
+function getPosts() {
+  const loginData = getLoginData();
+
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${loginData.token}`,
+    },
+  };
+
+  return fetch(`${apiBaseURL}/api/posts?limit=100&offset=0&username=${loginData.username}`, options)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Posts retrieved:", data);
+      return data;
+    });
+}
