@@ -142,3 +142,63 @@ function getProfile() {
           return data;
       });
 }
+
+function getPostsList() {
+  const postsListDiv = document.getElementById("postsList");
+
+  fetch("https://jsonplaceholder.typicode.com/posts") // Replace with your actual API endpoint
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((post) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        const cardHeader = document.createElement("div");
+        cardHeader.classList.add(
+          "card-header",
+          "d-flex",
+          "justify-content-between",
+          "align-items-center"
+        );
+
+        const userName = document.createElement("span");
+        userName.textContent = `User ${post.userId}`;
+
+        const iconImg = document.createElement("img");
+        iconImg.src = "../pictures/three-dots.svg";
+        iconImg.classList.add("icon");
+        iconImg.width = 12;
+        iconImg.height = 12;
+
+        cardHeader.appendChild(userName);
+        cardHeader.appendChild(iconImg);
+
+        const cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
+
+        const cardTitle = document.createElement("h5");
+        cardTitle.classList.add("card-title");
+        cardTitle.textContent = post.title;
+
+        const cardText = document.createElement("p");
+        cardText.classList.add("card-text");
+        cardText.textContent = post.body;
+
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardText);
+
+        const cardFooter = document.createElement("div");
+        cardFooter.classList.add("card-footer");
+        cardFooter.textContent = `Created at: ${new Date().toLocaleDateString()} | Likes: 0`;
+
+        card.appendChild(cardHeader);
+        card.appendChild(cardBody);
+        card.appendChild(cardFooter);
+
+        postsListDiv.appendChild(card);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching posts:", error);
+    });
+}

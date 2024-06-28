@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Twitter Clone</title>
+    <title>Twitter Clone - Posts</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       body {
@@ -18,46 +18,41 @@
       }
       .nav-pills .nav-link {
         color: #ffffff;
-        font-size: 1.25rem; /* Increase font size for navbar buttons */
-        text-align: left; /* Align text to the left */
+        font-size: 1.25rem;
+        text-align: left;
       }
       .nav-pills .nav-link:hover,
       .nav-pills .nav-link.active {
         background-color: #1da1f2;
         color: #ffffff;
-        border-radius: 30px; /* Rounded edges */
-        width: 100%; /* Span the entire width of the column */
+        border-radius: 30px;
+        width: 100%;
       }
       .btn-primary {
         background-color: #1da1f2;
         border-color: #1da1f2;
-        color: #ffffff; /* White text for blue buttons */
+        color: #ffffff;
         border-radius: 30px;
       }
       .btn-primary:hover {
-        background-color: #1da1f2; /* Remove hover color change */
+        background-color: #1da1f2;
         border-color: #1da1f2;
       }
       .card {
-        background-color: #000000; /* Black background for card bodies */
+        background-color: #000000;
         color: #ffffff;
-        border: 1px solid #1da1f2; /* Add border to cards */
-        margin-bottom: 10px; /* Add margin between cards */
+        border: 1px solid #1da1f2;
+        margin-bottom: 10px;
       }
       .card-header,
       .card-footer {
-        background-color: #000000; /* Black background for card header and footer */
+        background-color: #000000;
       }
       .card-body a:hover {
         color: #0d8dd4;
       }
       .border-right {
-        border-right: 1px solid #1da1f2; /* Add border to the right */
-      }
-      .custom-textarea {
-        background-color: #000000;
-        color: #ffffff;
-        border: 1px solid #1da1f2;
+        border-right: 1px solid #1da1f2;
       }
       .icon {
         filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
@@ -70,16 +65,16 @@
       }
       .nav-link {
         display: block;
-        padding: 0.5rem 1rem; /* Adjust padding as per your design */
-        color: #212529; /* Text color */
-        text-decoration: none; /* Remove default underline */
+        padding: 0.5rem 1rem;
+        color: #212529;
+        text-decoration: none;
       }
 
       .nav-link img {
-        margin-right: 1rem; /* Adjust icon-text spacing */
+        margin-right: 1rem;
       }
     </style>
-    <!-- Global CSS (CSS rules you want applied to all pages) -->
+    <!-- Global CSS -->
     <link rel="stylesheet" href="../global.css" />
     <!-- Page-specific CSS -->
     <link rel="stylesheet" href="posts.css" />
@@ -111,7 +106,7 @@
             <a class="nav-link" href="#"><img src="../pictures/bell.svg" class="icon" />Notifications</a>
             <a class="nav-link" href="#"><img src="../pictures/envelope.svg" class="icon" />Messages</a>
             <a class="nav-link" href="#"><img src="../pictures/slash.svg" class="icon" />Grok</a>
-            <a class="nav-link" href="list_of_posts.html"><img src="../pictures/list-ul.svg" class="icon" />Lists</a>
+            <a class="nav-link" href="#"><img src="../pictures/list-ul.svg" class="icon" />Lists</a>
             <a class="nav-link" href="#"><img src="../pictures/bookmark.svg" class="icon" />Bookmarks</a>
             <a class="nav-link" href="#"><img src="../pictures/person-add.svg" class="icon" />Communities</a>
             <a class="nav-link" href="#"><img src="../pictures/lightning-charge.svg" class="icon" />Premium</a>
@@ -130,21 +125,6 @@
         <!-- Column 3/4 -->
         <div class="col-12 col-sm-4 col-md-4 border-right card-col">
           <h1 class="text-center">Posts</h1>
-          <div class="card mb-4">
-            <div class="card-body">
-              <form id="postForm">
-                <div class="form-group">
-                  <textarea
-                    id="postText"
-                    class="form-control custom-textarea"
-                    rows="4"
-                    placeholder="Write your post here..."
-                  ></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary float-right">Create Post</button>
-              </form>
-            </div>
-          </div>
           <div id="postsList"></div>
         </div>
         <!-- COLUMN 5 -->
@@ -218,8 +198,65 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Page-specific code -->
-    <script src="posts.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        getPostsList();
+      });
+
+      function getPostsList() {
+        const postsListDiv = document.getElementById("postsList");
+
+        fetch("https://jsonplaceholder.typicode.com/posts") // Replace with your actual API endpoint
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((post) => {
+              const card = document.createElement("div");
+              card.classList.add("card");
+
+              const cardHeader = document.createElement("div");
+              cardHeader.classList.add("card-header", "d-flex", "justify-content-between", "align-items-center");
+
+              const userName = document.createElement("span");
+              userName.textContent = `User ${post.userId}`;
+
+              const iconImg = document.createElement("img");
+              iconImg.src = "../pictures/three-dots.svg";
+              iconImg.classList.add("icon");
+              iconImg.width = 12;
+              iconImg.height = 12;
+
+              cardHeader.appendChild(userName);
+              cardHeader.appendChild(iconImg);
+
+              const cardBody = document.createElement("div");
+              cardBody.classList.add("card-body");
+
+              const cardTitle = document.createElement("h5");
+              cardTitle.classList.add("card-title");
+              cardTitle.textContent = post.title;
+
+              const cardText = document.createElement("p");
+              cardText.classList.add("card-text");
+              cardText.textContent = post.body;
+
+              cardBody.appendChild(cardTitle);
+              cardBody.appendChild(cardText);
+
+              const cardFooter = document.createElement("div");
+              cardFooter.classList.add("card-footer");
+              cardFooter.textContent = `Created at: ${new Date().toLocaleDateString()} | Likes: 0`;
+
+              card.appendChild(cardHeader);
+              card.appendChild(cardBody);
+              card.appendChild(cardFooter);
+
+              postsListDiv.appendChild(card);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching posts:", error);
+          });
+      }
+    </script>
   </body>
 </html>
-<div class="col-sm-4 col-md-2 d-none d-sm-block mt-2 card-col"></div>
