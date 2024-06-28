@@ -8,37 +8,130 @@
     <!-- Global CSS (CSS rules you want applied to all pages) -->
     <link rel="stylesheet" href="global.css" />
 
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="index.css" />
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 
     <title>Login to the Microblog Network!</title>
+    <style>
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        margin-bottom: 70px; /* Adjust margin to accommodate footer */
+      }
+
+      .jumbotron {
+        background-color: transparent;
+        padding: 2rem;
+        margin-bottom: 0;
+      }
+
+      .jumbotron h1 {
+        font-size: 3.5rem; /* Adjust the size as desired */
+        margin-bottom: 1rem;
+      }
+
+      .jumbotron p {
+        font-size: 1.5rem; /* Adjust the size as desired */
+        margin-bottom: 2rem;
+      }
+
+      .btn-primary {
+        border-radius: 50px; /* Rounded corners */
+        padding: 10px 20px; /* Padding for pill-shaped buttons */
+      }
+
+      .footer {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 20px 0;
+        position: fixed; /* Fixed positioning */
+        bottom: 0; /* Stick to the bottom */
+        width: 100%; /* Full width */
+        text-align: center; /* Center align content */
+      }
+
+      .footer a {
+        color: #ffffff;
+        margin: 0 10px;
+      }
+    </style>
+    <!-- Run BEFORE page is finished loading (before window.onload - don't add the `defer` attribute): -->
+    <script src="auth.js"></script>
+    <script>
+      if (isLoggedIn() === true) {
+        window.location.replace("../posts/posts.html");
+      }
+    </script>
   </head>
   <body>
-    <header>
-      <nav>
-        <span id="greetingSpan">Welcome </span>
-        <a id="loginLink" href="account/login.html">Login</a>
-      </nav>
-    </header>
+    <main class="container-fluid">
+      <div class="row justify-content-center align-items-center">
+        <!-- Columns 1-3 -->
+        <div class="col-12 col-sm-5 col-md-3 text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <img src="pictures/logo2.svg" alt="Logo" class="img-fluid" />
+          </div>
+        </div>
 
-    <main>
-      <h1>Welcome to YOUR MICROBLOG NETWORK</h1>
+        <!-- Columns 4-6 -->
+        <div class="col-12 col-sm-7 col-md-4 text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="jumbotron">
+              <h1 class="display-3">Happening now</h1>
+              <p class="lead">Join today.</p>
+              <a href="account/register.html" class="btn btn-primary btn-lg">Create Account</a>
+              <p>By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use.</p>
+              <p>Already have an account?</p>
+              <a href="account/login.html" class="btn btn-outline-primary btn-lg">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
-    <footer></footer>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <a href="#">About</a>
+            <a href="#">Download the X app</a>
+            <a href="#">Help Center</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Ads info</a>
+            <a href="#">Blog</a>
+            <a href="#">Careers</a>
+            <a href="#">Brand Resources</a>
+            <a href="#">Advertising</a>
+            <a href="#">Marketing</a>
+            <a href="#">X for Business</a>
+            <a href="#">Developers</a>
+            <a href="#">Directory</a>
+            <a href="#">Settings</a>
+            <span>© 2024 X Corp.</span>
+          </div>
+        </div>
+      </div>
+    </footer>
 
+    <!-- Bootstrap JS (optional if not using JS features) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Page-specific code -->
     <script src="account/auth.js"></script>
     <script>
       const loginLink = document.querySelector("#loginLink");
       const greetingSpan = document.querySelector("#greetingSpan");
-      if (isLoggedIn() == true) {
+      if (isLoggedIn()) {
         loginLink.style.display = "none";
       } else {
         greetingSpan.style.display = "none";
       }
     </script>
-    <!-- Page-specific code -->
-
     <script src="index.js"></script>
   </body>
 </html>

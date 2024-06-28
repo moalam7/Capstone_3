@@ -5,6 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles -->
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .register-container {
+        max-width: 400px;
+        padding: 40px;
+        border-radius: 10px;
+        background-color: #1a1a1a;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      .register-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .form-control {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #444;
+      }
+      .form-control:focus {
+        background-color: #444;
+        border-color: #555;
+        color: #fff;
+      }
+      .btn-primary {
+        background-color: #1da1f2;
+        border-color: #1da1f2;
+      }
+      .btn-primary:hover {
+        background-color: #0d8dd4;
+        border-color: #0d8dd4;
+      }
+      #error-message {
+        color: red;
+      }
+    </style>
+
     <!-- Run BEFORE page is finished loading (before window.onload - don't add the `defer` attribute): -->
     <script src="auth.js"></script>
     <script>
@@ -14,27 +62,32 @@
     </script>
   </head>
   <body>
-    <header></header>
-    <main>
-      <h1>Register</h1>
+    <div class="register-container">
+      <div class="register-header">
+        <h1>Register</h1>
+      </div>
       <form id="register">
-        <div>
+        <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" minlength="3" required />
+          <input type="text" id="username" class="form-control" minlength="3" required />
         </div>
-        <div>
+        <div class="form-group">
           <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" required />
+          <input type="text" id="fullName" class="form-control" required />
         </div>
-        <div>
+        <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" minlength="6" required />
+          <input type="password" id="password" class="form-control" minlength="6" required />
         </div>
-        <button id="registerButton" type="submit">Register</button>
-        <p id="error-message" style="color: red"></p>
+        <button id="registerButton" type="submit" class="btn btn-primary btn-block">Register</button>
+        <p id="error-message"></p>
       </form>
-    </main>
-    <footer></footer>
+    </div>
+
+    <!-- Bootstrap JS and Page-specific JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Page-specific code -->
     <script src="register.js"></script>
   </body>

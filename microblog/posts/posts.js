@@ -7,6 +7,7 @@ if (isLoggedIn() === false) {
 
 const postForm = document.querySelector("#postForm");
 const postsList = document.querySelector("#postsList");
+const logoutLink = document.querySelector("#logoutLink");
 
 postForm.onsubmit = function (event) {
   event.preventDefault();
@@ -35,20 +36,32 @@ function appendPost(post) {
   const postText = post.text || "No text";
   const postCreatedAt = new Date(post.createdAt).toLocaleString();
   const postLikes = post.likes ? post.likes.length : 0;
+  const postUsername = post.username || "Unknown";
 
-  const postItem = document.createElement("tr");
-  postItem.innerHTML = `
-    <td>${postText}</td>
-    <td>${postCreatedAt}</td>
-    <td>${postLikes}</td>
+  const postCard = document.createElement("div");
+  postCard.className = "card mb-4";
+  postCard.innerHTML = `
+    <div class="card-header">${postUsername}</div>
+    <div class="card-body">
+      <p class="card-text">${postText}</p>
+    </div>
+    <div class="card-footer text-muted">
+      <span>Created at: ${postCreatedAt}</span>
+      <span>Likes: ${postLikes}</span>
+    </div>
   `;
+
   // Insert the new post at the beginning of the list
   if (postsList.firstChild) {
-    postsList.insertBefore(postItem, postsList.firstChild);
+    postsList.insertBefore(postCard, postsList.firstChild);
   } else {
-    postsList.appendChild(postItem);
+    postsList.appendChild(postCard);
   }
 }
 
 // Load posts when the page loads
 loadPosts();
+
+logoutLink.addEventListener("click", function () {
+  logout();
+});

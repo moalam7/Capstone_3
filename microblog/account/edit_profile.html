@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Twitter Clone</title>
+    <title>Edit Profile</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       body {
@@ -18,79 +19,114 @@
       }
       .nav-pills .nav-link {
         color: #ffffff;
-        font-size: 1.25rem; /* Increase font size for navbar buttons */
-        text-align: left; /* Align text to the left */
+        font-size: 1.25rem;
+        text-align: left;
       }
       .nav-pills .nav-link:hover,
       .nav-pills .nav-link.active {
         background-color: #1da1f2;
         color: #ffffff;
-        border-radius: 30px; /* Rounded edges */
-        width: 100%; /* Span the entire width of the column */
+        border-radius: 5px;
+        width: 100%;
       }
       .btn-primary {
         background-color: #1da1f2;
         border-color: #1da1f2;
-        color: #ffffff; /* White text for blue buttons */
-        border-radius: 30px;
+        color: #ffffff;
       }
       .btn-primary:hover {
-        background-color: #1da1f2; /* Remove hover color change */
+        background-color: #1da1f2;
         border-color: #1da1f2;
       }
       .card {
-        background-color: #000000; /* Black background for card bodies */
+        background-color: #000000;
         color: #ffffff;
-        border: 1px solid #1da1f2; /* Add border to cards */
-        margin-bottom: 10px; /* Add margin between cards */
+        border: 1px solid #1da1f2;
+        margin-bottom: 10px;
       }
       .card-header,
       .card-footer {
-        background-color: #000000; /* Black background for card header and footer */
+        background-color: #000000;
       }
       .card-body a:hover {
         color: #0d8dd4;
       }
       .border-right {
-        border-right: 1px solid #1da1f2; /* Add border to the right */
-      }
-      .custom-textarea {
-        background-color: #000000;
-        color: #ffffff;
-        border: 1px solid #1da1f2;
+        border-right: 1px solid #1da1f2;
       }
     </style>
-    <!-- Global CSS (CSS rules you want applied to all pages) -->
-    <link rel="stylesheet" href="../global.css" />
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="posts.css" />
-
-    <!-- Run BEFORE page is finished loading (before window.onload): -->
-    <script src="../account/auth.js"></script>
+    <script src="auth.js"></script>
     <script>
       if (isLoggedIn() === false) {
         window.location.replace("../account/login.html");
+      }
+
+      window.onload = function () {
+        getProfileData();
+        document.getElementById("finalEditProfileButton").addEventListener("click", finalEditProfile);
+        document.querySelector("#logoutLink").addEventListener("click", function () {
+          logout();
+        });
+      };
+
+      async function getProfileData() {
+        try {
+          const profileData = await getProfile();
+          displayProfileForm(profileData);
+        } catch (error) {
+          console.error("Error fetching profile data:", error.message);
+        }
+      }
+
+      function displayProfileForm(profileData) {
+        document.getElementById("fullName").value = profileData.fullName;
+        document.getElementById("username").value = profileData.username;
+        document.getElementById("bio").value = profileData.bio || "";
+      }
+
+      function finalEditProfile() {
+        const loginData = getLoginData();
+        const updatedProfile = {
+          username: document.getElementById("username").value,
+          fullName: document.getElementById("fullName").value,
+          bio: document.getElementById("bio").value,
+        };
+
+        console.log("Updated Profile Data:", updatedProfile);
+
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${loginData.token}`,
+          },
+          body: JSON.stringify(updatedProfile),
+        };
+
+        fetch(`${apiBaseURL}/api/users/${loginData.username}`, options)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to update profile");
+            }
+            return response.json();
+          })
+          .then(() => {
+            alert("Profile edited!");
+            window.location.href = "profile.html";
+          })
+          .catch((error) => {
+            console.error("Error updating profile:", error.message);
+          });
       }
     </script>
   </head>
   <body>
     <div class="container-fluid mb-2 bg-black text-white">
       <div class="row">
-        <div class="col-md-2 d-none d-md-block">
-          <!-- Column 1 (empty) -->
-        </div>
-        <!-- Empty space (Column 1) -->
+        <div class="col-md-2 d-none d-md-block">Column 1 (empty)</div>
         <div class="col-sm-4 col-md-2 d-none d-sm-block border-right">
           <nav class="nav flex-column navbar nav-pills">
-            <a class="navbar-brand" href="#">
-              <img
-                src="../pictures/logo2.svg"
-                alt="X Logo"
-                width="30"
-                height="24"
-                class="d-inline-block align-text-top"
-              />
-            </a>
+            <img src="twitter_x_logo.png" alt="Twitter X Logo" class="mb-3" />
             <a class="nav-link" href="#">Home</a>
             <a class="nav-link" href="#">Explore</a>
             <a class="nav-link" href="#">Notifications</a>
@@ -110,30 +146,34 @@
         </div>
         <!-- Column 3/4 -->
         <div class="col-12 col-sm-4 col-md-4 text-center border-right card-col">
-          <h1>Posts</h1>
+          <h1>Edit Profile</h1>
           <div class="card mb-4">
             <div class="card-body">
-              <form id="postForm">
+              <form id="editProfileForm">
                 <div class="form-group">
-                  <textarea
-                    id="postText"
-                    class="form-control custom-textarea"
-                    rows="4"
-                    placeholder="Write your post here..."
-                  ></textarea>
+                  <label for="fullName">Full Name:</label>
+                  <input type="text" id="fullName" name="fullName" class="form-control" required />
                 </div>
-                <button type="submit" class="btn btn-primary">Create Post</button>
+                <div class="form-group">
+                  <label for="username">Username:</label>
+                  <input type="text" id="username" name="username" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label for="bio">Bio:</label>
+                  <input type="text" id="bio" name="bio" class="form-control" />
+                </div>
+                <button type="button" id="finalEditProfileButton" class="btn btn-primary">Save Changes</button>
               </form>
             </div>
           </div>
-          <div id="postsList"></div>
         </div>
         <!-- COLUMN 5 -->
         <div class="col-sm-4 col-md-2 d-none d-sm-block text-center card-col">
           <div class="card text-center">
+            <div class="card-header">Subscribe to Premium</div>
             <div class="card-body">
-              <h5 class="card-title">Subscribe to Premium</h5>
-              <p class="card-text">Subscribe to unlock new features. If eligible, receive a share of ad revenue.</p>
+              <h5 class="card-title">Subscribe to unlock new features</h5>
+              <p class="card-text">If eligible, receive a share of ad revenue.</p>
               <a href="#" class="btn btn-primary">Subscribe</a>
             </div>
           </div>
@@ -150,9 +190,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2 d-none d-md-block">
-          <!-- Column 6 (empty) -->
-        </div>
+        <div class="col-md-2 d-none d-md-block">Column 6 (empty)</div>
         <!-- Empty space (Column 6) -->
       </div>
     </div>
@@ -160,7 +198,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Page-specific code -->
-    <script src="posts.js"></script>
   </body>
 </html>

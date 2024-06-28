@@ -4,14 +4,55 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Global CSS (CSS rules you want applied to all pages) -->
-    <link rel="stylesheet" href="./global.css" />
-
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="./login.css" />
-
     <title>Login</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles -->
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .login-container {
+        max-width: 400px;
+        padding: 40px;
+        border-radius: 10px;
+        background-color: #1a1a1a;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      .login-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .login-header img {
+        max-width: 100%;
+        height: auto;
+      }
+      .form-control {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #444;
+      }
+      .form-control:focus {
+        background-color: #444;
+        border-color: #555;
+        color: #fff;
+      }
+      .btn-primary {
+        background-color: #1da1f2;
+        border-color: #1da1f2;
+      }
+      .btn-primary:hover {
+        background-color: #0d8dd4;
+        border-color: #0d8dd4;
+      }
+    </style>
 
     <!-- Run BEFORE page is finished loading (before window.onload - don't add the `defer` attribute): -->
     <script src="auth.js"></script>
@@ -22,27 +63,33 @@
     </script>
   </head>
   <body>
-    <header></header>
-
-    <main>
-      <h1>Login</h1>
+    <div class="login-container">
+      <div class="login-header">
+        <img src="../pictures/logo.png" alt="Logo" />
+      </div>
       <form id="login">
-        <div>
+        <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" minlength="3" />
+          <input type="text" id="username" class="form-control" minlength="3" placeholder="Username" required />
         </div>
-
-        <div>
+        <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" minlength="6" />
+          <input type="password" id="password" class="form-control" minlength="6" placeholder="Password" required />
         </div>
-
-        <button id="loginButton" type="submit">Login</button>
+        <div class="mb-3">
+          <div class="form-check text-center">
+            <input type="checkbox" class="form-check-input" id="dropdownCheck" />
+            <label class="form-check-label" for="dropdownCheck"> Remember me </label>
+          </div>
+        </div>
+        <button id="loginButton" type="submit" class="btn btn-primary btn-block">Login</button>
       </form>
-    </main>
+    </div>
 
-    <footer></footer>
-
+    <!-- Bootstrap JS and Page-specific JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Page-specific code -->
     <script src="login.js"></script>
   </body>
