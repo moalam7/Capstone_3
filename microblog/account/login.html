@@ -52,6 +52,20 @@
         background-color: #0d8dd4;
         border-color: #0d8dd4;
       }
+      .footer {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 20px 0;
+        position: fixed; /* Fixed positioning */
+        bottom: 0; /* Stick to the bottom */
+        width: 100%; /* Full width */
+        text-align: center; /* Center align content */
+      }
+
+      .footer a {
+        color: #ffffff;
+        margin: 0 10px;
+      }
     </style>
 
     <!-- Run BEFORE page is finished loading (before window.onload - don't add the `defer` attribute): -->
@@ -85,6 +99,33 @@
         <button id="loginButton" type="submit" class="btn btn-primary btn-block">Login</button>
       </form>
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <a href="#">About</a>
+            <a href="#">Download the X app</a>
+            <a href="#">Help Center</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Ads info</a>
+            <a href="#">Blog</a>
+            <a href="#">Careers</a>
+            <a href="#">Brand Resources</a>
+            <a href="#">Advertising</a>
+            <a href="#">Marketing</a>
+            <a href="#">X for Business</a>
+            <a href="#">Developers</a>
+            <a href="#">Directory</a>
+            <a href="#">Settings</a>
+            <span>© 2024 X Corp.</span>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <!-- Bootstrap JS and Page-specific JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
