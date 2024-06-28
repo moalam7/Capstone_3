@@ -59,6 +59,21 @@
         color: #ffffff;
         border: 1px solid #1da1f2;
       }
+      .icon {
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        width: 30px;
+        height: 24px;
+      }
+      .nav-link {
+        display: block;
+        padding: 0.5rem 1rem; /* Adjust padding as per your design */
+        color: #212529; /* Text color */
+        text-decoration: none; /* Remove default underline */
+      }
+
+      .nav-link img {
+        margin-right: 1rem; /* Adjust icon-text spacing */
+      }
     </style>
     <!-- Global CSS (CSS rules you want applied to all pages) -->
     <link rel="stylesheet" href="../global.css" />
@@ -83,33 +98,29 @@
         <div class="col-sm-4 col-md-2 d-none d-sm-block border-right">
           <nav class="nav flex-column navbar nav-pills">
             <a class="navbar-brand" href="#">
-              <img
-                src="../pictures/logo2.svg"
-                alt="X Logo"
-                width="30"
-                height="24"
-                class="d-inline-block align-text-top"
-              />
+              <img src="../pictures/logo2.svg" alt="X Logo" class="d-inline-block align-text-top icon" />
             </a>
-            <a class="nav-link" href="#">Home</a>
-            <a class="nav-link" href="#">Explore</a>
-            <a class="nav-link" href="#">Notifications</a>
-            <a class="nav-link" href="#">Messages</a>
-            <a class="nav-link" href="#">Grok</a>
-            <a class="nav-link" href="#">Lists</a>
-            <a class="nav-link" href="#">Bookmarks</a>
-            <a class="nav-link" href="#">Communities</a>
-            <a class="nav-link" href="#">Premium</a>
-            <a class="nav-link" href="#">Profile</a>
-            <a class="nav-link" href="#">More</a>
-            <a class="nav-link mt-3" href="#" id="logoutLink">Logout</a>
+            <a class="nav-link" href="#"> <img src="../pictures/house-door.svg" class="icon" />Home</a>
+            <a class="nav-link" href="#"><img src="../pictures/search.svg" class="icon" />Explore</a>
+            <a class="nav-link" href="#"><img src="../pictures/bell.svg" class="icon" />Notifications</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Messages</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Grok</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Lists</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Bookmarks</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Communities</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Premium</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />Profile</a>
+            <a class="nav-link" href="#"><img src="../pictures/house-door.svg" class="icon" />More</a>
+            <a class="nav-link mt-3" href="#" id="logoutLink"
+              ><img src="../pictures/house-door.svg" class="icon" />Logout</a
+            >
             <div class="mt-auto">
               <a class="nav-link" href="../account/profile.html">Profile</a>
             </div>
           </nav>
         </div>
         <!-- Column 3/4 -->
-        <div class="col-12 col-sm-4 col-md-4 text-center border-right card-col">
+        <div class="col-12 col-sm-4 col-md-4 border-right card-col">
           <h1>Posts</h1>
           <div class="card mb-4">
             <div class="card-body">
@@ -122,28 +133,28 @@
                     placeholder="Write your post here..."
                   ></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Create Post</button>
+                <button type="submit" class="btn btn-primary float-right">Create Post</button>
               </form>
             </div>
           </div>
           <div id="postsList"></div>
         </div>
         <!-- COLUMN 5 -->
-        <div class="col-sm-4 col-md-2 d-none d-sm-block text-center card-col">
-          <div class="card text-center">
+        <div class="col-sm-4 col-md-2 d-none d-sm-block mt-2 card-col">
+          <div class="card">
             <div class="card-body">
               <h5 class="card-title">Subscribe to Premium</h5>
               <p class="card-text">Subscribe to unlock new features. If eligible, receive a share of ad revenue.</p>
               <a href="#" class="btn btn-primary">Subscribe</a>
             </div>
           </div>
-          <div class="card text-center">
+          <div class="card">
             <div class="card-header">What's happening</div>
             <div class="card-body">
               <p class="card-text">Content goes here.</p>
             </div>
           </div>
-          <div class="card text-center">
+          <div class="card">
             <div class="card-header">Who to follow</div>
             <div class="card-body">
               <p class="card-text">Content goes here.</p>
